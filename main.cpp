@@ -14,13 +14,17 @@ int main()
     }
 
     SquareMatrix<double>M(A);
+    SquareMatrix<double>M_rev = M.reverse();
+    SquareMatrix<double>Id(A.size());
+    Id.make_identity();
 
-    const vector<vector<double> > ans = M.reverse();
+    M.show();
+    cout << "\n";
+    M_rev.show();
+    cout << "\n";
+    Id.show();
+    cout << "\n";
 
-    for(int i = 0; i < n; i++) {
-        for(int j  = 0; j < n; j++) {
-            cout << ans[i][j] << " ";
-        }
-        cout << "\n";
-    }
+    if(M * M_rev == Id)cout << "YES" << "\n";
+    else cout << "NO" << "\n";
 }

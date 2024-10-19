@@ -3,6 +3,7 @@
 //
 #include "MatrixLib.h"
 
+
 template<typename T>
 void SquareMatrix<T>::transpose_rows(const int row1, const int row2) {
     for(int column = 0; column < size; column++) {
@@ -38,34 +39,89 @@ vector<vector<T>> SquareMatrix<T>::get_matrix()
 }
 
 template<typename T>
-vector<vector<T> > SquareMatrix<T>::reverse(){
+SquareMatrix<T> SquareMatrix<T>::reverse(){
+    SquareMatrix<T>Copy(*this);
     SquareMatrix<T> Res(size);
     Res.make_identity();
 
     for(int row = 0; row < size; row++) { // direct Gauss
-        if((*matrix)[row][row] == 0) {
+        if((*Copy.matrix)[row][row] == 0) {
             for(int i = row + 1; i < size; i++)
-                if((*matrix)[i][row] != 0) {
+                if((*Copy.matrix)[i][row] != 0) {
                     Res.transpose_rows(row, i);
-                    transpose_rows(row, i);
+                    Copy.transpose_rows(row, i);
                     break;
                 }
+
+            if((*Copy.matrix)[row][row] == 0)throw std::invalid_argument("Determinant is zero");
         }
-        Res.multiply_row(row, 1.0 / (*matrix)[row][row]);
-        multiply_row(row, 1.0 / (*matrix)[row][row]);
+        Res.multiply_row(row, 1.0 / (*Copy.matrix)[row][row]);
+        Copy.multiply_row(row, 1.0 / (*Copy.matrix)[row][row]);
         for(int i = row + 1; i < size; i++) {
-            Res.add_to_row(i, row, -(*matrix)[i][row]);
-            add_to_row(i, row, -(*matrix)[i][row]);
+            Res.add_to_row(i, row, -(*Copy.matrix)[i][row]);
+            Copy.add_to_row(i, row, -(*Copy.matrix)[i][row]);
         }
 
     }
 
     for(int row = size - 1; row > 0; --row) { // reverse Gauss
         for(int i = row - 1; i >= 0; --i) {
-            Res.add_to_row(i, row, -(*matrix)[i][row]);
-            add_to_row(i, row, -(*matrix)[i][row]);
+            Res.add_to_row(i, row, -(*Copy.matrix)[i][row]);
+            Copy.add_to_row(i, row, -(*Copy.matrix)[i][row]);
         }
     }
-    return Res.get_matrix();
+    return Res;
 }
+
+template<typename T>
+void SquareMatrix<T>::show()
+{
+    for(int row = 0; row < size; row++)
+    {
+        for(int column = 0; column < size; column++)
+        {
+            cout << (*matrix)[row][column] << " ";
+        }
+        cout << "\n";
+    }
+}
+
+template <typename T>
+SquareMatrix<T>& SquareMatrix<T>::operator=(SquareMatrix<T> const& other)
+{
+    size = other.size;
+    matrix = make_unique<vector<vector<T>>>(*other.matrix);
+    return *this;
+}
+
+template <typename T>
+SquareMatrix<T> SquareMatrix<T>::operator*(SquareMatrix<T> const& other)
+{
+    SquareMatrix<T> product(size);
+    for(int row = 0; row < size; row++)
+    {
+        for(int column = 0; column < size; column++)
+        {
+            for(int i = 0; i < size; i++)
+            {
+                (*product.matrix)[row][column] += (*matrix)[row][i] * (*other.matrix)[i][column];
+            }
+        }
+    }
+    return product;
+}
+
+template <typename T>
+bool SquareMatrix<T>::operator==(SquareMatrix<T> const& other)
+{
+    for(int row = 0; row < size; row++)
+    {
+        for(int column = 0; column < size; column++)
+        {
+            if((*matrix)[row][column] != (*other.matrix)[row][column])return false;
+        }
+    }
+    return true;
+}
+
 template class SquareMatrix<double>;
