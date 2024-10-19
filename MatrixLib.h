@@ -4,16 +4,33 @@
 
 #ifndef MATRIXLIB_H
 #define MATRIXLIB_H
-
-#endif //MATRIXLIB_H
-
+#include <bits/unique_ptr.h>
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#endif //MATRIXLIB_H
 using std::vector;
 using std::swap;
-void transpose_line(vector<vector<double> >&Matr, int i, int j);
-void relax(vector<vector<double> >&Matr, int i, double val);
-void add(vector<vector<double> >&Matr, int to, int from, double val);
-vector<vector<double> >reverse(vector<vector<double> >Matr);
+using std::unique_ptr;
+using std::move;
+using std::make_unique;
+template<typename T>
+class SquareMatrix
+{
+private:
+    unique_ptr<vector<vector<T> >> matrix;
+    int size = 0;
+
+    void transpose_rows(int row1, int row2);
+    void multiply_row(int row, T val);
+    void add_to_row(int row_to, int row_from, T val);
+    void make_identity();
+public:
+    explicit SquareMatrix(const vector<vector<T> >& m):matrix(make_unique<vector<vector<T> >>(m)), size(m.size()){}
+    SquareMatrix(const SquareMatrix<T>& other):matrix(make_unique<vector<vector<T> >>(*other.matrix)), size(other.size){}
+    explicit SquareMatrix(int s):matrix(make_unique<vector<vector<T> > >(s, vector<T>(s, 0))), size(s){}
+    vector<vector<T> >reverse();
+    vector<vector<T> >get_matrix();
+};
+
 

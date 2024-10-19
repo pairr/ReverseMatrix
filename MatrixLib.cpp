@@ -2,48 +2,70 @@
 // Created by stud-05 on 10/19/24.
 //
 #include "MatrixLib.h"
-void transpose_line(vector<vector<double> >&Matr, int line1, int line2) {
-    for(int column = 0; column < Matr.size(); column++) {
-        swap(Matr[line1][column], Matr[line2][column]);
-    }
-}
-void relax(vector<vector<double> >&Matr, int line, double val) {
-    for(int column = 0; column < Matr.size(); column++)Matr[line][column] /= val;
-}
-void add(vector<vector<double> >&Matr, int line_to, int line_from, double val) {
-    for(int column = 0; column < Matr.size(); column++) {
-        Matr[line_to][column] += Matr[line_from][column] * val;
-    }
-}
-vector<vector<double> >reverse(vector<vector<double> >Matr){
-    int n = Matr.size();
-    vector<vector<double> >Res(n, vector<double>(n, 0));
-    for(int i = 0; i < n; i++)Res[i][i] = 1;
 
-    for(int line = 0; line < n; line++) { // direct Gauss
-        if(Matr[line][line] == 0) {
-            for(int i = line + 1; i < n; i++)
-                if(Matr[i][line] != 0) {
-                    transpose_line(Matr, line, i);
-                    transpose_line(Res, line, i);
+template<typename T>
+void SquareMatrix<T>::transpose_rows(const int row1, const int row2) {
+    for(int column = 0; column < size; column++) {
+        swap((*matrix)[row1][column], (*matrix)[row2][column]);
+    }
+}
+template<typename T>
+void SquareMatrix<T>::multiply_row(const int row, const T val) {
+    for(int column = 0; column < size; column++)(*matrix)[row][column] *= val;
+}
+template<typename T>
+void SquareMatrix<T>::add_to_row(const int row_to, const int row_from, const T val) {
+    for(int column = 0; column < size; column++) {
+        (*matrix)[row_to][column] += (*matrix)[row_from][column] * val;
+    }
+}
+template <typename T>
+void SquareMatrix<T>::make_identity()
+{
+    for(int i = 0; i < size; i++)
+    {
+        for(int j = 0; j < size; j++)
+        {
+            if(i == j)(*matrix)[i][j] = 1;
+            else (*matrix)[i][j] = 0;
+        }
+    }
+}
+template <typename T>
+vector<vector<T>> SquareMatrix<T>::get_matrix()
+{
+    return *matrix;
+}
+
+template<typename T>
+vector<vector<T> > SquareMatrix<T>::reverse(){
+    SquareMatrix<T> Res(size);
+    Res.make_identity();
+
+    for(int row = 0; row < size; row++) { // direct Gauss
+        if((*matrix)[row][row] == 0) {
+            for(int i = row + 1; i < size; i++)
+                if((*matrix)[i][row] != 0) {
+                    Res.transpose_rows(row, i);
+                    transpose_rows(row, i);
                     break;
                 }
         }
-        relax(Res, line, Matr[line][line]);
-        relax(Matr, line, Matr[line][line]);
-        for(int i = line + 1; i < n; i++) {
-            add(Res, i, line, -Matr[i][line]);
-            add(Matr, i, line, -Matr[i][line]);
+        Res.multiply_row(row, 1.0 / (*matrix)[row][row]);
+        multiply_row(row, 1.0 / (*matrix)[row][row]);
+        for(int i = row + 1; i < size; i++) {
+            Res.add_to_row(i, row, -(*matrix)[i][row]);
+            add_to_row(i, row, -(*matrix)[i][row]);
         }
 
     }
 
-    for(int line = n - 1; line > 0; line--) { // reverse Gauss
-        for(int i = line - 1; i >= 0; i--) {
-            add(Res, i, line, -Matr[i][line]);
-            add(Matr, i, line, -Matr[i][line]);
+    for(int row = size - 1; row > 0; --row) { // reverse Gauss
+        for(int i = row - 1; i >= 0; --i) {
+            Res.add_to_row(i, row, -(*matrix)[i][row]);
+            add_to_row(i, row, -(*matrix)[i][row]);
         }
     }
-    return Res;
+    return Res.get_matrix();
 }
-
+template class SquareMatrix<double>;

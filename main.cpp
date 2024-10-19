@@ -13,7 +13,9 @@ int main()
         }
     }
 
-    vector<vector<double> > ans = reverse(A);
+    SquareMatrix<double>M(A);
+
+    const vector<vector<double> > ans = M.reverse();
 
     for(int i = 0; i < n; i++) {
         for(int j  = 0; j < n; j++) {
