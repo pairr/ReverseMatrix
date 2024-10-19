@@ -19,7 +19,6 @@ using std::cout;
 template<typename T>
 class SquareMatrix
 {
-private:
     unique_ptr<vector<vector<T> >> matrix;
     int size = 0;
 
@@ -39,6 +38,20 @@ public:
     SquareMatrix<T>& operator=(SquareMatrix<T> const &other);
     SquareMatrix<T> operator*(SquareMatrix<T> const &other);
     bool operator==(SquareMatrix<T> const &other);
+
+    friend vector<T> operator*(SquareMatrix<T> const& M, vector<T> const& V)
+    {
+        if(M.size != V.size())throw std::invalid_argument("vector and matrix have different dimensions");
+        vector<T> product(M.size, 0);
+        for(int row = 0; row < M.size; row++)
+        {
+            for(int column = 0; column < M.size; column++)
+            {
+                product[row] += (*M.matrix)[row][column] * V[column];
+            }
+        }
+        return product;
+    }
 };
 
 

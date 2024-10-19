@@ -27,4 +27,12 @@ int main()
 
     if(M * M_rev == Id)cout << "YES" << "\n";
     else cout << "NO" << "\n";
+
+    vector<double> V(n);
+    for(int i = 0; i < n; i++)cin >> V[i];
+
+    vector<double> P = M * V;
+
+    for(int i = 0; i < n; i++)cout << P[i] << " ";
+    cout << "\n";
 }

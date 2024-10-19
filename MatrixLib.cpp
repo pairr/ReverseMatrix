@@ -3,6 +3,8 @@
 //
 #include "MatrixLib.h"
 
+#include <functional>
+
 
 template<typename T>
 void SquareMatrix<T>::transpose_rows(const int row1, const int row2) {
