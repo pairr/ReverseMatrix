@@ -23,12 +23,12 @@ void SquareMatrix<T>::add_to_row(const int row_to, const int row_from, const T v
 template <typename T>
 void SquareMatrix<T>::make_identity()
 {
-    for(int i = 0; i < size; i++)
+    for(int row = 0; row < size; row++)
     {
-        for(int j = 0; j < size; j++)
+        for(int column = 0; column < size; column++)
         {
-            if(i == j)(*matrix)[i][j] = 1;
-            else (*matrix)[i][j] = 0;
+            if(row == column)(*matrix)[row][column] = 1;
+            else (*matrix)[row][column] = 0;
         }
     }
 }
