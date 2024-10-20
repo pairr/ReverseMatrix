@@ -99,6 +99,7 @@ SquareMatrix<T>& SquareMatrix<T>::operator=(SquareMatrix<T> const& other)
 template <typename T>
 SquareMatrix<T> SquareMatrix<T>::operator*(SquareMatrix<T> const& other)
 {
+    if(size != other.size)throw std::invalid_argument("Matrices have different dimensions");
     SquareMatrix<T> product(size);
     for(int row = 0; row < size; row++)
     {
@@ -116,6 +117,7 @@ SquareMatrix<T> SquareMatrix<T>::operator*(SquareMatrix<T> const& other)
 template <typename T>
 bool SquareMatrix<T>::operator==(SquareMatrix<T> const& other)
 {
+    if(size != other.size)return false;
     for(int row = 0; row < size; row++)
     {
         for(int column = 0; column < size; column++)
