@@ -1,8 +1,8 @@
 //
 // Created by stud-05 on 10/19/24.
 //
-#include "MatrixLib.h"
-
+#ifndef MATRIXLIB_HPP
+#define MATRIXLIB_HPP
 #include <functional>
 
 
@@ -42,6 +42,7 @@ vector<vector<T>> SquareMatrix<T>::get_matrix()
 
 template<typename T>
 SquareMatrix<T> SquareMatrix<T>::reverse(){
+    if(size == 0)throw std::invalid_argument("SquareMatrix is empty");
     SquareMatrix<T>Copy(*this);
     SquareMatrix<T> Res(size);
     Res.make_identity();
@@ -128,4 +129,4 @@ bool SquareMatrix<T>::operator==(SquareMatrix<T> const& other)
     return true;
 }
 
-template class SquareMatrix<double>;
+#endif //MATRIXLIB_HPP

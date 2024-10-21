@@ -9,7 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#endif //MATRIXLIB_H
+
 using std::vector;
 using std::swap;
 using std::unique_ptr;
@@ -53,5 +53,6 @@ public:
         return product;
     }
 };
-
+#include "MatrixLib.hpp"
+#endif //MATRIXLIB_H
 
