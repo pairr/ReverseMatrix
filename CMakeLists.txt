@@ -1,9 +1,14 @@
-cmake_minimum_required(VERSION 3.29)
-project(template_matrix)
+cmake_minimum_required(VERSION 3.26)
+project(testing_test)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(matrix_t main.cpp
-        MatrixLib.hpp
-        MatrixLib.h
-)
+set(SOURCE_FILES main.cpp)
+add_executable(run ${SOURCE_FILES})
+
+include_directories(MatrixLib)
+add_subdirectory(MatrixLib)
+
+target_link_libraries(run MatrixLib)
+
+add_subdirectory(Tests)
