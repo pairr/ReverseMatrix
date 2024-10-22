@@ -1,0 +1,2 @@
+add_executable(tests_run AbsoluteMatrixTest.cpp)
+target_link_libraries(tests_run MatrixLib)

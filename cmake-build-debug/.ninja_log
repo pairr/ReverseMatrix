@@ -1,0 +1,15 @@
+# ninja log v6
+3	3536	1729501069937609282	CMakeFiles/untitled.dir/test.cpp.o	5bac3af836067c7d
+0	1457	1729500531280917548	CMakeFiles/untitled.dir/main.cpp.o	7c32cb10d6a8dafe
+11	4806	1729588938235320318	Tests/CMakeFiles/tests_run.dir/AbsoluteMatrixTest.cpp.o	8b3298b7c8dd38ec
+11	88	1729589038676332462	build.ninja	57c2239aeaa87608
+20	824	1729323439186467907	CMakeFiles/untitled.dir/MatrixLib.cpp.o	486474f5081a885b
+2	2123	1729501269789545250	CMakeFiles/untitled.dir/mai.cpp.o	6f06b9299d309ea6
+7	1193	1729503144639153097	CMakeFiles/matrix_t.dir/main.cpp.o	7db95fe2f9992dad
+1193	1277	1729503145825153328	matrix_t	c115f95f9c966e0a
+7	9248	1729588425440385603	Tests/CMakeFiles/tests_run.dir/ConverterTests.cpp.o	c5a9a544a30485e8
+4806	5036	1729588943029320770	Tests/tests_run	2ba2986c0af8564f
+26	6446	1729589055515335013	Tests/CMakeFiles/tests_run.dir/AbsoluteMatrixTest.cpp.o	8b3298b7c8dd38ec
+6446	6613	1729589061933336020	Tests/tests_run	2ba2986c0af8564f
+2	1723	1729589169055355498	CMakeFiles/run.dir/main.cpp.o	22d105731c685baa
+1723	1842	1729589170776355849	run	5b92eded89c8e331
