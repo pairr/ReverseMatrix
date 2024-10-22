@@ -1,8 +1,0 @@
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/CMakeFiles/run.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/MatrixLib/CMakeFiles/edit_cache.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/MatrixLib/CMakeFiles/rebuild_cache.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/Tests/CMakeFiles/tests_run.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/Tests/CMakeFiles/edit_cache.dir
-/home/stud-05/CLionProjects/ReverseMatrix/cmake-build-debug/Tests/CMakeFiles/rebuild_cache.dir
